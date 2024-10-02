@@ -1,21 +1,18 @@
-version: '3.8'
 
 services:
   app:
     build: .
-    container_name: notes_app
+    container_name: notes
     ports:
       - "3000:3000"
     environment:
       NODE_ENV: development
-      DB_HOST: postgres
-      DB_USER: ${POSTGRES_USER:-postgres}
-      DB_PASSWORD: ${POSTGRES_PASSWORD:-changeme}
-      DB_NAME: ${POSTGRES_DB:-notesdb}
-      DB_PORT: 5432
+      PORT: 3000
+      DATABASE_URL: postgres://postgres:root@postgres:5432/notesdb
     volumes:
-      - ./src:/usr/src/app/src
-      - ./package.json:/usr/src/app/package.json
+      - .:/app  # Mount the entire project directory
+      - /app/node_modules  # Anonymous volume for node_modules
+    command: npm run dev
     depends_on:
       - postgres
 
@@ -23,25 +20,13 @@ services:
     image: postgres:14
     container_name: notes_postgres
     environment:
-      POSTGRES_USER: ${POSTGRES_USER:-postgres}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-changeme}
-      POSTGRES_DB: ${POSTGRES_DB:-notesdb}
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: notesdb
     ports:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
-      - ./src/config/init.sql:/docker-entrypoint-initdb.d/init.sql
-
-  pgadmin:
-    image: dpage/pgadmin4
-    container_name: notes_pgadmin
-    environment:
-      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_EMAIL:-admin@admin.com}
-      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_PASSWORD:-admin}
-    ports:
-      - "5050:80"
-    depends_on:
-      - postgres
 
 volumes:
   postgres_data:
