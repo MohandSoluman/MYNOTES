@@ -9,12 +9,19 @@ services:
       NODE_ENV: development
       PORT: 3000
       DATABASE_URL: postgres://postgres:root@postgres:5432/notesdb
+      CHOKIDAR_USEPOLLING: "true"
     volumes:
       - .:/app  # Mount the entire project directory
       - /app/node_modules  # Anonymous volume for node_modules
-    command: npm run dev
+    command: sh -c "npm run migrate && npm run dev"
     depends_on:
       - postgres
+     # Add these lines for better development experience
+    stdin_open: true  # Keep STDIN open
+    tty: true         # Allocate a pseudo-TTY
+    # Add this to ensure the container restarts if it crashes
+    restart: unless-stopped
+    
 
   postgres:
     image: postgres:14
