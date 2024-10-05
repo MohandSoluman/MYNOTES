@@ -1,4 +1,3 @@
-
 services:
   app:
     build: .
@@ -11,17 +10,17 @@ services:
       DATABASE_URL: postgres://postgres:root@postgres:5432/notesdb
       CHOKIDAR_USEPOLLING: "true"
     volumes:
-      - .:/app  # Mount the entire project directory
-      - /app/node_modules  # Anonymous volume for node_modules
-    command: sh -c "npm run migrate && npm run dev"
+      - .:/app
+      - /app/node_modules
+    command: >
+      sh -c "npx sequelize-cli db:migrate && npm run dev"
     depends_on:
       - postgres
-     # Add these lines for better development experience
-    stdin_open: true  # Keep STDIN open
-    tty: true         # Allocate a pseudo-TTY
-    # Add this to ensure the container restarts if it crashes
+    stdin_open: true
+    tty: true
     restart: unless-stopped
-    
+    networks:
+      - notes_network
 
   postgres:
     image: postgres:14
@@ -34,6 +33,25 @@ services:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
+    networks:
+      - notes_network
+
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: pgadmin
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@example.com
+      PGADMIN_DEFAULT_PASSWORD: admin
+    ports:
+      - "8080:80"
+    depends_on:
+      - postgres
+    networks:
+      - notes_network
 
 volumes:
   postgres_data:
+
+networks:
+  notes_network:
+    driver: bridge
