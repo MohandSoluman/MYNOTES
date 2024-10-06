@@ -1,5 +1,9 @@
 import { Note } from "../model/note.model";
-import { NoteRepository, CreateNoteDTO, UpdateNoteDTO } from "../types";
+import {
+  NoteRepository,
+  CreateNoteDTO,
+  UpdateNoteDTO,
+} from "../types/note.type";
 
 export class SequelizeNoteRepository implements NoteRepository {
   async create(data: CreateNoteDTO) {

@@ -1,15 +1,19 @@
 import { Model, DataTypes, Sequelize } from "sequelize";
-import { NoteType } from "../types/note.type";
+import { BookType } from "../types/book.type";
 
-export class Note extends Model<NoteType> implements NoteType {
+export class Book extends Model<BookType> implements BookType {
   public id!: number;
   public title!: string;
-  public content!: string | null;
+  public isBn!: boolean;
+  public description!: string;
+  public publisher!: string;
+  public author!: string;
+  public pages!: number;
   public created_at!: Date;
   public updated_at!: Date;
 
   public static initModel(sequelize: Sequelize): void {
-    Note.init(
+    Book.init(
       {
         id: {
           type: DataTypes.INTEGER,
@@ -20,9 +24,25 @@ export class Note extends Model<NoteType> implements NoteType {
           type: DataTypes.STRING(255),
           allowNull: false,
         },
-        content: {
-          type: DataTypes.TEXT,
-          allowNull: true,
+        isBn: {
+          type: DataTypes.BOOLEAN,
+          allowNull: false,
+        },
+        description: {
+          type: DataTypes.STRING(255),
+          allowNull: false,
+        },
+        publisher: {
+          type: DataTypes.STRING(255),
+          allowNull: false,
+        },
+        author: {
+          type: DataTypes.STRING(255),
+          allowNull: false,
+        },
+        pages: {
+          type: DataTypes.NUMBER,
+          allowNull: false,
         },
         created_at: {
           type: DataTypes.DATE,
@@ -35,7 +55,7 @@ export class Note extends Model<NoteType> implements NoteType {
       },
       {
         sequelize,
-        tableName: "notes",
+        tableName: "Books",
         timestamps: true,
         createdAt: "created_at",
         updatedAt: "updated_at",

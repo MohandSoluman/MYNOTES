@@ -5,14 +5,11 @@ export interface NoteType {
   created_at?: Date; // Optional because Sequelize will manage this
   updated_at?: Date; // Optional because Sequelize will manage this
 }
-
 export type CreateNoteDTO = Omit<NoteType, "id" | "created_at" | "updated_at">;
-
 export interface UpdateNoteDTO {
   title?: string;
   content?: string;
 }
-
 export interface NoteRepository {
   findAll(): Promise<NoteType[]>;
   findById(id: number): Promise<NoteType | null>;

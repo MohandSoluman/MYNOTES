@@ -1,4 +1,8 @@
-import { NoteRepository, CreateNoteDTO, UpdateNoteDTO } from "../types";
+import {
+  NoteRepository,
+  CreateNoteDTO,
+  UpdateNoteDTO,
+} from "../types/note.type";
 import { NotFoundError } from "../utils/error";
 
 export class NoteService {

@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import { NoteService } from "../services/note.service";
-import { CreateNoteDTO, UpdateNoteDTO } from "../types";
+import { CreateNoteDTO, UpdateNoteDTO } from "../types/note.type";
 
 export class NoteController {
   constructor(private noteService: NoteService) {}
