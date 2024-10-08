@@ -1,24 +1,5 @@
-// import app from "./app";
-// import DatabaseConnection from "./config/db";
-
-// const PORT = process.env.PORT || 3000;
-
-// const startServer = async () => {
-//   try {
-//     await DatabaseConnection.getConnection().authenticate();
-//     console.log("Database connected successfully.....");
-//     app.listen(PORT, () => {
-//       console.log(`Server is running on port ${PORT} on ${environment} env...`);
-//     });
-//   } catch (error) {
-//     console.error("Unable to connect to the database:", error);
-//   }
-// };
-
-// startServer();
-
 import app from "./app";
-import { initializeDatabase } from "./utils/database";
+import { initializeDatabase } from "./config/initDB";
 require("dotenv").config();
 const environment = process.env.NODE_ENV;
 

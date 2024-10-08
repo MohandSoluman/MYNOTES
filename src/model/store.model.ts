@@ -1,28 +1,34 @@
-import { Model, DataTypes, Sequelize } from "sequelize";
-import { NoteType } from "../types/note.type";
+import { DataTypes, Model, Sequelize } from "sequelize";
 
-export class Note extends Model<NoteType> implements NoteType {
+import { StoreType } from "../types/store.type";
+
+export class Store extends Model<StoreType> implements StoreType {
   public id!: number;
-  public title!: string;
-  public content!: string | null;
+  public storeName!: string;
+  public code!: string;
+  public address!: string;
   public created_at!: Date;
   public updated_at!: Date;
 
   public static initModel(sequelize: Sequelize): void {
-    Note.init(
+    Store.init(
       {
         id: {
           type: DataTypes.INTEGER,
           autoIncrement: true,
           primaryKey: true,
         },
-        title: {
+        storeName: {
           type: DataTypes.STRING(255),
           allowNull: false,
         },
-        content: {
-          type: DataTypes.TEXT,
-          allowNull: true,
+        code: {
+          type: DataTypes.STRING(255),
+          allowNull: false,
+        },
+        address: {
+          type: DataTypes.STRING(255),
+          allowNull: false,
         },
         created_at: {
           type: DataTypes.DATE,
@@ -35,7 +41,7 @@ export class Note extends Model<NoteType> implements NoteType {
       },
       {
         sequelize,
-        tableName: "notes",
+        tableName: "stores",
         timestamps: true,
         createdAt: "created_at",
         updatedAt: "updated_at",
