@@ -4,29 +4,29 @@ import {
   CreateStoreDTO,
   UpdateStoreDTO,
 } from "../types/store.type";
+import { logger } from "../utils/logger";
+import { BaseRepository } from "./base.repository";
 
-export class SequelizeStoreRepository implements StoreRepository {
-  async create(data: CreateStoreDTO) {
-    return await Store.create(data);
-  }
-  async findAll() {
-    return await Store.findAll();
-  }
-
-  async findById(id: number) {
-    return await Store.findByPk(id);
+export class SequelizeStoreRepository
+  extends BaseRepository<Store>
+  implements StoreRepository
+{
+  constructor(userId: number) {
+    super(Store, userId, "Store");
   }
 
-  async update(id: number, data: UpdateStoreDTO) {
-    const store = await Store.findByPk(id);
-    if (!store) return null;
-    return await store.update(data);
-  }
-
-  async delete(id: number) {
-    const store = await Store.findByPk(id);
-    if (!store) return false;
-    await Store.destroy();
-    return true;
+  async findByLocation(location: string) {
+    try {
+      logger.info("Finding stores by location", location);
+      return await this.model.findAll({
+        where: { location },
+      });
+    } catch (error) {
+      logger.error("Failed to find stores by location", {
+        error,
+        location,
+      } as any);
+      throw error;
+    }
   }
 }

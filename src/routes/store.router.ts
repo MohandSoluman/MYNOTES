@@ -4,19 +4,16 @@ import { StoreService } from "../services/store.service";
 import { SequelizeStoreRepository } from "../repositories/store.repository";
 
 const router = Router();
-
-const storeRepository = new SequelizeStoreRepository();
+const userId = 2;
+const storeRepository = new SequelizeStoreRepository(userId);
 const storeService = new StoreService(storeRepository);
 const storeController = new StoreController(storeService);
 
-router
-  .route("/")
-  .post(storeController.createStore)
-  .get(storeController.getAllStores);
+router.route("/").post(storeController.create).get(storeController.getAll);
 router
   .route("/:id")
-  .get(storeController.getStoreById)
-  .put(storeController.updateStore)
-  .delete(storeController.deleteStore);
+  .get(storeController.getById)
+  .put(storeController.update)
+  .delete(storeController.delete);
 
 export default router;

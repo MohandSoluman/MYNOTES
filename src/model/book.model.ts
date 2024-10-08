@@ -3,6 +3,7 @@ import { BookType } from "../types/book.type";
 
 export class Book extends Model<BookType> implements BookType {
   public id!: number;
+  public storeId!: number;
   public title!: string;
   public isBn!: boolean;
   public description!: string;
@@ -19,6 +20,16 @@ export class Book extends Model<BookType> implements BookType {
           type: DataTypes.INTEGER,
           autoIncrement: true,
           primaryKey: true,
+        },
+        storeId: {
+          type: DataTypes.INTEGER,
+          allowNull: false,
+          references: {
+            model: "Stores",
+            key: "id",
+          },
+          onDelete: "CASCADE",
+          onUpdate: "CASCADE",
         },
         title: {
           type: DataTypes.STRING(255),
@@ -55,7 +66,7 @@ export class Book extends Model<BookType> implements BookType {
       },
       {
         sequelize,
-        tableName: "Books",
+        tableName: "books",
         timestamps: true,
         createdAt: "created_at",
         updatedAt: "updated_at",

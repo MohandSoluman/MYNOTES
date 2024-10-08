@@ -1,32 +1,42 @@
 import { Book } from "../model/book.model";
+import { Store } from "../model/store.model";
 import {
   BookRepository,
   CreateBookDTO,
   UpdateBookDTO,
 } from "../types/book.type";
+import { logger } from "../utils/logger";
+import { BaseRepository } from "./base.repository";
 
-export class SequelizeBookRepository implements BookRepository {
-  async create(data: CreateBookDTO) {
-    return await Book.create(data);
+export class SequelizeBookRepository
+  extends BaseRepository<Book>
+  implements BookRepository
+{
+  constructor(userId: number) {
+    super(Book, userId, "Book");
   }
-  async findAll() {
-    return await Book.findAll();
+  async create(data: Omit<CreateBookDTO, "id">) {
+    try {
+      const store = await Store.findByPk(data.storeId);
+      if (!store) {
+        logger.error("Store not found for book creation", data.storeId as any);
+        throw new Error(`Store with id ${data.storeId} does not exist`);
+      }
+      return super.create(data);
+    } catch (error) {
+      logger.error("Failed to create book", { error, data } as any);
+      throw error;
+    }
   }
-
-  async findById(id: number) {
-    return await Book.findByPk(id);
-  }
-
-  async update(id: number, data: UpdateBookDTO) {
-    const book = await Book.findByPk(id);
-    if (!book) return null;
-    return await book.update(data);
-  }
-
-  async delete(id: number) {
-    const book = await Book.findByPk(id);
-    if (!book) return false;
-    await book.destroy();
-    return true;
+  async findByAuthor(author: string) {
+    try {
+      logger.info("Finding books by author", author);
+      return await this.model.findAll({
+        where: { author },
+      });
+    } catch (error) {
+      logger.error("Failed to find books by author", { error, author } as any);
+      throw error;
+    }
   }
 }

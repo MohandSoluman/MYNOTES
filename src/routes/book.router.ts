@@ -4,19 +4,16 @@ import { BookService } from "../services/book.service";
 import { SequelizeBookRepository } from "../repositories/book.repository";
 
 const router = Router();
-
-const bookRepository = new SequelizeBookRepository();
+const userId = 2;
+const bookRepository = new SequelizeBookRepository(userId);
 const bookService = new BookService(bookRepository);
 const bookController = new BookController(bookService);
 
-router
-  .route("/")
-  .post(bookController.createBook)
-  .get(bookController.getAllBooks);
+router.route("/").post(bookController.create).get(bookController.getAll);
 router
   .route("/:id")
-  .get(bookController.getBookById)
-  .put(bookController.updateBook)
-  .delete(bookController.deleteBook);
+  .get(bookController.getById)
+  .put(bookController.update)
+  .delete(bookController.delete);
 
 export default router;

@@ -1,7 +1,8 @@
 export interface BookType {
-  id?: number; // Auto-generated, should be optional
-  title: string;
+  id?: number;
+  storeId: number; // Auto-generated, should be optional
   isBn: boolean;
+  title: string;
   publisher: string;
   description: string;
   author: string;

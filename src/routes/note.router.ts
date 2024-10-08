@@ -4,19 +4,19 @@ import { NoteService } from "../services/note.service";
 import { SequelizeNoteRepository } from "../repositories/note.repository";
 
 const router = Router();
-
-const noteRepository = new SequelizeNoteRepository();
+const userId = 2;
+const noteRepository = new SequelizeNoteRepository(userId);
 const noteService = new NoteService(noteRepository);
 const noteController = new NoteController(noteService);
 
 router
   .route("/")
-  .post(noteController.createNote)
-  .get(noteController.getAllNotes);
+  .post(noteController.create)
+  .get(noteController.getAll);
 router
   .route("/:id")
-  .get(noteController.getNoteById)
-  .put(noteController.updateNote)
-  .delete(noteController.deleteNote);
+  .get(noteController.getById)
+  .put(noteController.update)
+  .delete(noteController.delete);
 
 export default router;
