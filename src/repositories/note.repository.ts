@@ -16,21 +16,21 @@ export class SequelizeNoteRepository
     super(Note, userId, "Note");
   }
 
-  async create(data: Omit<CreateNoteDTO, "id">) {
-    try {
-      // const book = await Book.findByPk(data.bookId);
-      // if (!book) {
-      //   logger.error("Book not found for note creation", {
-      //     bookId: data.bookId,
-      //   });
-      //   throw new Error(`Book with id ${data.bookId} does not exist`);
-      // }
-      return super.create(data);
-    } catch (error) {
-      logger.error("Failed to create note", { error, data } as any);
-      throw error;
-    }
-  }
+  // async create(data: Omit<CreateNoteDTO, "id">) {
+  //   try {
+  //     // const book = await Book.findByPk(data.bookId);
+  //     // if (!book) {
+  //     //   logger.error("Book not found for note creation", {
+  //     //     bookId: data.bookId,
+  //     //   });
+  //     //   throw new Error(`Book with id ${data.bookId} does not exist`);
+  //     // }
+  //     return super.create(data);
+  //   } catch (error) {
+  //     logger.error("Failed to create note", { error, data } as any);
+  //     throw error;
+  //   }
+  // }
 
   // async findByBookId(bookId: number) {
   //   try {

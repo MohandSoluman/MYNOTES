@@ -1,7 +1,8 @@
 import { Request, Response, NextFunction } from "express";
 
 export abstract class BaseController<T, CreateDTO, UpdateDTO> {
-  constructor(private service: any) {}
+  constructor(private service: any) {
+  }
 
   getAll = async (_req: Request, res: Response, next: NextFunction) => {
     try {

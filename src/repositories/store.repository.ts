@@ -1,10 +1,6 @@
 import { Store } from "../model/store.model";
-import {
-  StoreRepository,
-  CreateStoreDTO,
-  UpdateStoreDTO,
-} from "../types/store.type";
-import { logger } from "../utils/logger";
+import { StoreRepository } from "../types/store.type";
+
 import { BaseRepository } from "./base.repository";
 
 export class SequelizeStoreRepository
@@ -15,18 +11,18 @@ export class SequelizeStoreRepository
     super(Store, userId, "Store");
   }
 
-  async findByLocation(location: string) {
-    try {
-      logger.info("Finding stores by location", location);
-      return await this.model.findAll({
-        where: { location },
-      });
-    } catch (error) {
-      logger.error("Failed to find stores by location", {
-        error,
-        location,
-      } as any);
-      throw error;
-    }
-  }
+  // async findByLocation(title: string) {
+  //   try {
+  //     logger.info("Finding stores by location", title);
+  //     return await this.model.findAll({
+  //       where: { title },
+  //     });
+  //   } catch (error) {
+  //     logger.error("Failed to find stores by location", {
+  //       error,
+  //       location,
+  //     } as any);
+  //     throw error;
+  //   }
+  // }
 }

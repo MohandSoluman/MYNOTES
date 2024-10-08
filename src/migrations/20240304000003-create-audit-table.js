@@ -1,39 +1,40 @@
-import { QueryInterface, DataTypes } from "sequelize";
+"use strict";
 
 module.exports = {
-  up: async (queryInterface: QueryInterface) => {
+  up: async (queryInterface, Sequelize) => {
     await queryInterface.createTable("audit_logs", {
       id: {
-        type: DataTypes.INTEGER,
+        allowNull: false,
         autoIncrement: true,
         primaryKey: true,
+        type: Sequelize.INTEGER,
       },
       entity_type: {
-        type: DataTypes.STRING,
+        type: Sequelize.STRING(255),
         allowNull: false,
       },
       entity_id: {
-        type: DataTypes.INTEGER,
+        type: Sequelize.INTEGER,
         allowNull: false,
       },
       action: {
-        type: DataTypes.ENUM("CREATE", "UPDATE", "DELETE"),
+        type: Sequelize.ENUM("CREATE", "UPDATE", "DELETE"),
         allowNull: false,
       },
       user_id: {
-        type: DataTypes.INTEGER,
+        type: Sequelize.INTEGER,
         allowNull: true,
       },
       old_values: {
-        type: DataTypes.JSONB,
+        type: Sequelize.JSONB,
         allowNull: true,
       },
       new_values: {
-        type: DataTypes.JSONB,
+        type: Sequelize.JSONB,
         allowNull: true,
       },
       created_at: {
-        type: DataTypes.DATE,
+        type: Sequelize.DATE,
         allowNull: false,
       },
     });
@@ -44,7 +45,7 @@ module.exports = {
     await queryInterface.addIndex("audit_logs", ["created_at"]);
   },
 
-  down: async (queryInterface: QueryInterface) => {
+  down: async (queryInterface) => {
     await queryInterface.dropTable("audit_logs");
   },
 };

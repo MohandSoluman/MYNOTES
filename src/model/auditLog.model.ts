@@ -1,55 +1,60 @@
 import { Model, DataTypes, Sequelize } from "sequelize";
 import { AuditLogAttributes } from "../types/audit.type";
+
 export class AuditLog
   extends Model<AuditLogAttributes>
   implements AuditLogAttributes
 {
   public id!: number;
-  public entityType!: string;
-  public entityId!: number;
+  public entity_type!: string;
+  public entity_id!: number;
   public action!: "CREATE" | "UPDATE" | "DELETE";
-  public oldValues!: object;
-  public newValues!: object;
-  public userId!: number;
-  public readonly createdAt!: Date;
-}
+  public old_values!: object;
+  public new_values!: object;
+  public user_id!: number;
+  public readonly created_at!: Date;
 
-export const initAuditLogModel = (sequelize: Sequelize) => {
-  AuditLog.init(
-    {
-      id: {
-        type: DataTypes.INTEGER,
-        autoIncrement: true,
-        primaryKey: true,
+  public static initModel(sequelize: Sequelize): void {
+    AuditLog.init(
+      {
+        id: {
+          type: DataTypes.INTEGER,
+          autoIncrement: true,
+          primaryKey: true,
+        },
+        entity_type: {
+          type: DataTypes.STRING(255),
+          allowNull: false,
+        },
+        entity_id: {
+          type: DataTypes.INTEGER,
+          allowNull: false,
+        },
+        action: {
+          type: DataTypes.ENUM("CREATE", "UPDATE", "DELETE"),
+          allowNull: false,
+        },
+        new_values: {
+          type: DataTypes.JSONB,
+          allowNull: true,
+        },
+        old_values: {
+          type: DataTypes.JSONB,
+          allowNull: true,
+        },
+        user_id: {
+          type: DataTypes.INTEGER,
+          allowNull: true,
+        },
       },
-      entityType: {
-        type: DataTypes.STRING,
-        allowNull: false,
-      },
-      entityId: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-      },
-      action: {
-        type: DataTypes.ENUM("CREATE", "UPDATE", "DELETE"),
-        allowNull: false,
-      },
-      oldValues: {
-        type: DataTypes.JSONB,
-        allowNull: true,
-      },
-      newValues: {
-        type: DataTypes.JSONB,
-        allowNull: true,
-      },
-      userId: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-      },
-    },
-    {
-      sequelize,
-      tableName: "audit_logs",
-    }
-  );
-};
+      {
+        sequelize,
+        tableName: "audit_logs",
+        timestamps: true,
+        createdAt: "created_at",
+        updatedAt: false, // Since your table doesn't have an updated_at column
+        underscored: true, // This ensures Sequelize uses snake_case
+      }
+    );
+  }
+}

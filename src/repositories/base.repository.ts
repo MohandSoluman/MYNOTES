@@ -15,18 +15,18 @@ export abstract class BaseRepository<T extends Model & HasId> {
   protected async createAuditLog(
     entityId: number,
     action: "CREATE" | "UPDATE" | "DELETE",
-    oldValues?: object,
-    newValues?: object
+    oldValues: object = {},
+    newValues: object = {}
   ): Promise<void> {
     try {
       await AuditLog.create({
-        entityType: this.entityType,
-        entityId,
+        entity_type: this.entityType,
+        entity_id: entityId,
         action,
-        oldValues,
-        newValues,
-        userId: this.userId,
-      });
+        old_values: oldValues || null,
+        new_values: newValues || null,
+        user_id: this.userId,
+      } as any);
     } catch (error) {
       logger.error("Failed to create audit log", {
         error,
@@ -37,30 +37,6 @@ export abstract class BaseRepository<T extends Model & HasId> {
       } as any);
     }
   }
-
-  async findAll() {
-    try {
-      logger.info(`Finding all ${this.entityType}s`);
-      return await this.model.findAll();
-    } catch (error) {
-      logger.error(`Failed to find all ${this.entityType}s`, error as Error);
-      throw error;
-    }
-  }
-
-  async findById(id: number) {
-    try {
-      logger.info(`Finding ${this.entityType} by id`, id);
-      return await this.model.findByPk(id);
-    } catch (error) {
-      logger.error(`Failed to find ${this.entityType} by id`, {
-        error,
-        id,
-      } as any);
-      throw error;
-    }
-  }
-
   async create(data: any) {
     try {
       logger.info(`Creating ${this.entityType}`, { data } as any);
@@ -120,6 +96,28 @@ export abstract class BaseRepository<T extends Model & HasId> {
       return true;
     } catch (error) {
       logger.error(`Failed to delete ${this.entityType}`, { error, id } as any);
+      throw error;
+    }
+  }
+  async findAll() {
+    try {
+      logger.info(`Finding all ${this.entityType}s`);
+      return await this.model.findAll();
+    } catch (error) {
+      logger.error(`Failed to find all ${this.entityType}s`, error as Error);
+      throw error;
+    }
+  }
+
+  async findById(id: number) {
+    try {
+      logger.info(`Finding ${this.entityType} by id`, id);
+      return await this.model.findByPk(id);
+    } catch (error) {
+      logger.error(`Failed to find ${this.entityType} by id`, {
+        error,
+        id,
+      } as any);
       throw error;
     }
   }

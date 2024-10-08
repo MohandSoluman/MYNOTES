@@ -1,4 +1,3 @@
-// repositories/audit.repository.ts
 import { Op } from "sequelize";
 import { AuditLog } from "../model/auditLog.model";
 import { logger } from "../utils/logger";
@@ -51,32 +50,32 @@ export class AuditRepository {
     }
   }
 
-  async findByEntityId(entityType: string, entityId: number) {
+  async findByEntityId(entity_type: string, entity_id: number) {
     try {
       return await AuditLog.findAll({
-        where: { entityType, entityId },
+        where: { entity_type, entity_id },
         order: [["createdAt", "DESC"]],
       });
     } catch (error) {
       logger.error("Failed to fetch audit logs by entity", {
         error,
-        entityType,
-        entityId,
+        entity_type,
+        entity_id,
       } as any);
       throw error;
     }
   }
 
-  async findByUserId(userId: number) {
+  async findByUserId(user_id: number) {
     try {
       return await AuditLog.findAll({
-        where: { userId },
+        where: { user_id },
         order: [["createdAt", "DESC"]],
       });
     } catch (error) {
       logger.error("Failed to fetch audit logs by user", {
         error,
-        userId,
+        user_id,
       } as any);
       throw error;
     }
