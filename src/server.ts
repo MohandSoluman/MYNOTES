@@ -1,5 +1,5 @@
 import app from "./app";
-import { initializeDatabase } from "./config/initDB";
+import { initializeDatabase } from "./config/database";
 require("dotenv").config();
 const environment = process.env.NODE_ENV;
 
