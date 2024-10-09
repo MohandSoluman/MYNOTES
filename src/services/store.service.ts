@@ -3,7 +3,7 @@ import {
   CreateStoreDTO,
   UpdateStoreDTO,
 } from "../types/store.type";
-import { NotFoundError } from "../utils/error";
+import { NotFoundError } from "../Errors/api.error";
 
 export class StoreService {
   constructor(private repository: StoreRepository) {}

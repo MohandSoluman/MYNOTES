@@ -5,7 +5,9 @@ import bookRoutes from "./routes/book.router";
 import cors from "cors";
 import bodyParser from "body-parser";
 import auditRouter from "./routes/audit.router";
-//import { errorHandler } from "./middlewares/errorHandler";
+import swaggerUi from "swagger-ui-express";
+import { swaggerSpec } from "./config/swagger";
+import { errorHandlerMW } from "./middlewares/errorHandlerMW";
 
 const app = express();
 app.use(express.json());
@@ -16,5 +18,6 @@ app.use("/api/v1/notes", noteRoutes);
 app.use("/api/v1/books", bookRoutes);
 app.use("/api/v1/stores", storeRoutes);
 app.use("/api/v1/audit-logs", auditRouter);
-
+app.use("/swagger", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+app.use(errorHandlerMW);
 export default app;

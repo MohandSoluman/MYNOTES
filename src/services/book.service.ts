@@ -3,7 +3,7 @@ import {
   CreateBookDTO,
   UpdateBookDTO,
 } from "../types/book.type";
-import { NotFoundError } from "../utils/error";
+import { NotFoundError } from "../Errors/api.error";
 
 export class BookService {
   constructor(private repository: BookRepository) {}

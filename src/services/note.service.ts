@@ -3,7 +3,7 @@ import {
   CreateNoteDTO,
   UpdateNoteDTO,
 } from "../types/note.type";
-import { NotFoundError } from "../utils/error";
+import { NotFoundError } from "../Errors/api.error";
 
 export class NoteService {
   constructor(private repository: NoteRepository) {}

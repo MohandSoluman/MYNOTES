@@ -4,6 +4,7 @@
 ## repositry pattern
 ## dependancy Injection
 ## socket io
+## Error Handling
 ## Auditing 
 ## payment integration
 ## logger winstron
@@ -16,3 +17,4 @@
 ## Authentication & authraizatin
 ## Streems 
 ## file Data vishualization
+## unit test
