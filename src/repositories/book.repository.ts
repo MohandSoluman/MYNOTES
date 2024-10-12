@@ -1,16 +1,12 @@
 import { Book } from "../model/book.model";
 import { Store } from "../model/store.model";
-import {
-  BookRepository,
-  CreateBookDTO,
-  UpdateBookDTO,
-} from "../types/book.type";
+import { CreateBookDTO, IBookRepository } from "../interfaces/book.interface";
 import { logger } from "../utils/logger";
 import { BaseRepository } from "./base.repository";
 
-export class SequelizeBookRepository
+export class BookRepository
   extends BaseRepository<Book>
-  implements BookRepository
+  implements IBookRepository
 {
   constructor(userId: number) {
     super(Book, userId, "Book");

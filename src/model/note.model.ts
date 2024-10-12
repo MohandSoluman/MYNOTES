@@ -1,13 +1,12 @@
 import { Model, DataTypes, Sequelize } from "sequelize";
-import { NoteType } from "../types/note.type";
+import { INote } from "../interfaces/note.interface";
 
-export class Note extends Model<NoteType> implements NoteType {
+export class Note extends Model<INote> {
   public id!: number;
   public title!: string;
   public content!: string | null;
-  public created_at!: Date;
-  public updated_at!: Date;
-
+  public created_at?: Date;
+  public updated_at?: Date;
   public static initModel(sequelize: Sequelize): void {
     Note.init(
       {

@@ -1,9 +1,6 @@
-import {
-  BookRepository,
-  CreateBookDTO,
-  UpdateBookDTO,
-} from "../types/book.type";
-import { NotFoundError } from "../utils/error";
+import { CreateBookDTO, UpdateBookDTO } from "../interfaces/book.interface";
+import { NotFoundError } from "../Errors/api.error";
+import { BookRepository } from "../repositories/book.repository";
 
 export class BookService {
   constructor(private repository: BookRepository) {}

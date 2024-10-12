@@ -1,4 +1,4 @@
-export interface BookType {
+export interface IBook {
   id?: number;
   storeId: number; // Auto-generated, should be optional
   isBn: boolean;
@@ -11,15 +11,15 @@ export interface BookType {
   updated_at?: Date; // Optional because Sequelize will manage this
 }
 
-export type CreateBookDTO = Omit<BookType, "id" | "created_at" | "updated_at">;
+export type CreateBookDTO = Omit<IBook, "id" | "created_at" | "updated_at">;
 export interface UpdateBookDTO {
   title?: string;
   content?: string;
 }
-export interface BookRepository {
-  findAll(): Promise<BookType[]>;
-  findById(id: number): Promise<BookType | null>;
-  create(data: CreateBookDTO): Promise<BookType>;
-  update(id: number, data: UpdateBookDTO): Promise<BookType | null>;
+export interface IBookRepository {
+  findAll(): Promise<IBook[]>;
+  findById(id: number): Promise<IBook | null>;
+  create(data: CreateBookDTO): Promise<IBook>;
+  update(id: number, data: UpdateBookDTO): Promise<IBook | null>;
   delete(id: number): Promise<boolean>;
 }

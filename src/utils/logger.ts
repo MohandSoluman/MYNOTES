@@ -31,13 +31,13 @@ class Logger {
         new DailyRotateFile({
           filename: infoLogPath,
           datePattern: "YYYY-MM-DD",
-          maxFiles: "30d", // Keep logs for 30 days
+          maxFiles: "1d", // Keep logs for 30 days
           level: "info",
         }),
         new DailyRotateFile({
           filename: errorLogPath,
           datePattern: "YYYY-MM-DD",
-          maxFiles: "30d",
+          maxFiles: "1d",
           level: "error",
         }),
       ],

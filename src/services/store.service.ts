@@ -1,9 +1,9 @@
 import {
-  StoreRepository,
   CreateStoreDTO,
   UpdateStoreDTO,
-} from "../types/store.type";
-import { NotFoundError } from "../utils/error";
+} from "../interfaces/store.interface";
+import { NotFoundError } from "../Errors/api.error";
+import { StoreRepository } from "../repositories/store.repository";
 
 export class StoreService {
   constructor(private repository: StoreRepository) {}

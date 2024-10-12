@@ -1,11 +1,11 @@
 import { Store } from "../model/store.model";
-import { StoreRepository } from "../types/store.type";
+import { IStoreRepository } from "../interfaces/store.interface";
 
 import { BaseRepository } from "./base.repository";
 
-export class SequelizeStoreRepository
+export class StoreRepository
   extends BaseRepository<Store>
-  implements StoreRepository
+  implements IStoreRepository
 {
   constructor(userId: number) {
     super(Store, userId, "Store");

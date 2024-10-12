@@ -1,58 +1,55 @@
 import { Model, DataTypes, Sequelize } from "sequelize";
-import { IBook } from "../interfaces/book.interface";
+import { IUser } from "../../interfaces/user.interface";
 
-export class Book extends Model<IBook> {
+export class User extends Model<IUser> {
   public id!: number;
-  public storeId!: number;
-  public title!: string;
-  public isBn!: boolean;
-  public description!: string;
-  public publisher!: string;
-  public author!: string;
-  public pages!: number;
+  public user_name!: string;
+  public user_type_code!: string;
+  public email!: string;
+  public password!: string;
+  public isActive!: boolean;
+  public create_by!: number;
   public created_at!: Date;
   public updated_at!: Date;
 
   public static initModel(sequelize: Sequelize): void {
-    Book.init(
+    User.init(
       {
         id: {
           type: DataTypes.INTEGER,
           autoIncrement: true,
           primaryKey: true,
         },
-        storeId: {
-          type: DataTypes.INTEGER,
+        user_name: {
+          type: DataTypes.STRING(255),
+          allowNull: false,
+          unique: true,
+        },
+        user_type_code: {
+          type: DataTypes.STRING(50),
           allowNull: false,
           references: {
-            model: "Stores",
-            key: "id",
+            model: "user_types",
+            key: "code",
           },
-          onDelete: "CASCADE",
+          onDelete: "RESTRICT",
           onUpdate: "CASCADE",
         },
-        title: {
+        email: {
+          type: DataTypes.STRING(255),
+          allowNull: false,
+          unique: true,
+        },
+        password: {
           type: DataTypes.STRING(255),
           allowNull: false,
         },
-        isBn: {
+        isActive: {
           type: DataTypes.BOOLEAN,
-          allowNull: false,
+          defaultValue: true,
         },
-        description: {
-          type: DataTypes.STRING(255),
-          allowNull: false,
-        },
-        publisher: {
-          type: DataTypes.STRING(255),
-          allowNull: false,
-        },
-        author: {
-          type: DataTypes.STRING(255),
-          allowNull: false,
-        },
-        pages: {
-          type: DataTypes.NUMBER,
+        create_by: {
+          type: DataTypes.INTEGER,
           allowNull: false,
         },
         created_at: {
@@ -66,7 +63,7 @@ export class Book extends Model<IBook> {
       },
       {
         sequelize,
-        tableName: "books",
+        tableName: "users",
         timestamps: true,
         createdAt: "created_at",
         updatedAt: "updated_at",

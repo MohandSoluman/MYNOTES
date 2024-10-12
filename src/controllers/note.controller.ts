@@ -1,5 +1,5 @@
 import { NoteService } from "../services/note.service";
-import { CreateNoteDTO, UpdateNoteDTO } from "../types/note.type";
+import { CreateNoteDTO, UpdateNoteDTO } from "../interfaces/note.interface";
 import { BaseController } from "./base.controller";
 
 export class NoteController extends BaseController<

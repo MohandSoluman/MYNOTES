@@ -1,8 +1,8 @@
 import { DataTypes, Model, Sequelize } from "sequelize";
 
-import { StoreType } from "../types/store.type";
+import { IStore } from "../interfaces/store.interface";
 
-export class Store extends Model<StoreType> implements StoreType {
+export class Store extends Model<IStore> {
   public id!: number;
   public storeName!: string;
   public code!: string;
