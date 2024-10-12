@@ -1,27 +1,29 @@
 import { AuditLog } from "../model/auditLog.model";
+import { AuditRepository } from "../repositories/audit.repository";
 
 export class AuditService {
+  constructor(private repository: AuditRepository) {}
   async getAuditTrail(entityType: string, entityId: number) {
-    return await AuditLog.findAll({
-      where: {
-        entityType,
-        entityId,
-      },
-      order: [["created_at", "DESC"]],
-    });
+    // return await this.repository.findAll({
+    //   where: {
+    //     entityType,
+    //     entityId,
+    //   },
+    //   order: [["created_at", "DESC"]],
+    // });
   }
 
   async getAuditsByUser(userId: number) {
-    return await AuditLog.findAll({
-      where: { userId },
-      order: [["created_at", "DESC"]],
-    });
+    // return await this.repository.findAll({
+    //   where: { userId },
+    //   order: [["created_at", "DESC"]],
+    // });
   }
 
   async getRecentAudits(limit = 10) {
-    return await AuditLog.findAll({
-      order: [["created_at", "DESC"]],
-      limit,
-    });
+    // return await this.repository.findAll({
+    //   order: [["created_at", "DESC"]],
+    //   limit,
+    // });
   }
 }

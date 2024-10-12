@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { StoreController } from "../controllers/store.controller";
 import { StoreService } from "../services/store.service";
-import { SequelizeStoreRepository } from "../repositories/store.repository";
+import { StoreRepository } from "../repositories/store.repository";
 /**
  * @swagger
  * components:
@@ -194,7 +194,7 @@ import { SequelizeStoreRepository } from "../repositories/store.repository";
 
 const router = Router();
 const userId = 2;
-const storeRepository = new SequelizeStoreRepository(userId);
+const storeRepository = new StoreRepository(userId);
 const storeService = new StoreService(storeRepository);
 const storeController = new StoreController(storeService);
 

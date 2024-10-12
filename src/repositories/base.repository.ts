@@ -51,8 +51,7 @@ export abstract class BaseRepository<T extends Model & HasId> {
       throw error;
     }
   }
-
-  async update(id: number, data: Partial<Omit<T["_attributes"], "id">>) {
+  async update(id: number, data: any) {
     try {
       logger.info(`Updating ${this.entityType}`, { id, data } as any);
       const instance = await this.model.findByPk(id);
@@ -79,7 +78,6 @@ export abstract class BaseRepository<T extends Model & HasId> {
       throw error;
     }
   }
-
   async delete(id: number) {
     try {
       logger.info(`Deleting ${this.entityType}`, id);
@@ -108,7 +106,6 @@ export abstract class BaseRepository<T extends Model & HasId> {
       throw error;
     }
   }
-
   async findById(id: number) {
     try {
       logger.info(`Finding ${this.entityType} by id`, id);

@@ -1,5 +1,4 @@
-// routes/audit.routes.ts
-import { NextFunction, Router } from "express";
+import { Router } from "express";
 import { AuditController } from "../controllers/audit.controller";
 import { AuditRepository } from "../repositories/audit.repository";
 //import { authMiddleware } from "../middlewares/auth.middleware";

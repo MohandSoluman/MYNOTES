@@ -1,10 +1,7 @@
 import { Model, DataTypes, Sequelize } from "sequelize";
-import { AuditLogAttributes } from "../types/audit.type";
+import { IAuditLogAttributes } from "../interfaces/audit.interface";
 
-export class AuditLog
-  extends Model<AuditLogAttributes>
-  implements AuditLogAttributes
-{
+export class AuditLog extends Model<IAuditLogAttributes> {
   public id!: number;
   public entity_type!: string;
   public entity_id!: number;

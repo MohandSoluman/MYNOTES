@@ -7,7 +7,7 @@ import bodyParser from "body-parser";
 import auditRouter from "./routes/audit.router";
 import swaggerUi from "swagger-ui-express";
 import { swaggerSpec } from "./config/swagger";
-import { errorHandlerMW } from "./middlewares/errorHandlerMW";
+import { errorHandlerMW } from "./middlewares/errorHandler.middleware";
 
 const app = express();
 app.use(express.json());
@@ -21,3 +21,5 @@ app.use("/api/v1/audit-logs", auditRouter);
 app.use("/swagger", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 app.use(errorHandlerMW);
 export default app;
+
+//@s34XEzW3pdKpbt---mettwaly-labs

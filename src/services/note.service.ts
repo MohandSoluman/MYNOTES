@@ -1,9 +1,6 @@
-import {
-  NoteRepository,
-  CreateNoteDTO,
-  UpdateNoteDTO,
-} from "../types/note.type";
+import { CreateNoteDTO, UpdateNoteDTO } from "../interfaces/note.interface";
 import { NotFoundError } from "../Errors/api.error";
+import { NoteRepository } from "../repositories/note.repository";
 
 export class NoteService {
   constructor(private repository: NoteRepository) {}

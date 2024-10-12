@@ -1,4 +1,4 @@
-export interface AuditLogAttributes {
+export interface IAuditLogAttributes {
   id: number;
   entity_type: string;
   entity_id: number;

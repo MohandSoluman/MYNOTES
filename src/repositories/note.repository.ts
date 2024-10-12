@@ -1,16 +1,10 @@
-import { Book } from "../model/book.model";
 import { Note } from "../model/note.model";
-import {
-  NoteRepository,
-  CreateNoteDTO,
-  UpdateNoteDTO,
-} from "../types/note.type";
-import { logger } from "../utils/logger";
+import { INoteRepository } from "../interfaces/note.interface";
 import { BaseRepository } from "./base.repository";
 
-export class SequelizeNoteRepository
+export class NoteRepository
   extends BaseRepository<Note>
-  implements NoteRepository
+  implements INoteRepository
 {
   constructor(userId: number) {
     super(Note, userId, "Note");
