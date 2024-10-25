@@ -15,6 +15,17 @@ export interface UpdateUserDTO {
   email?: string;
   password?: string;
 }
+
+export interface LoginDTO {
+  email: string;
+  password: string;
+}
+
+export interface RegisterDTO {
+  name: string;
+  email: string;
+  password: string;
+}
 export interface IUserRepository {
   findAll(): Promise<IUser[]>;
   findById(id: number): Promise<IUser | null>;

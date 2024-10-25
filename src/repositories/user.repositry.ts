@@ -11,20 +11,31 @@ export class UserRepository
   implements UserRepository
 {
   constructor(userId: number) {
-    super(User, userId, "Store");
+    super(User, userId, "User");
   }
 
   async assignUserToGroups(userId: number, groupIds: number[]): Promise<void> {
     try {
       await UserGroup.destroy({ where: { user_id: userId } });
       await UserGroup.bulkCreate(
-        groupIds.map((groupId) => ({
+        groupIds.map((groupId, index) => ({
+          id: index + 1,
           user_id: userId,
           group_id: groupId,
         }))
       );
     } catch (error) {
       logger.error("Error in assignUserToGroups repository", error as any);
+      throw error;
+    }
+  }
+
+  async findByEmail(email: string) {
+    try {
+      logger.info("Finding user by email", email);
+      return await User.findOne({ where: { email } });
+    } catch (error) {
+      logger.error("Failed to find user by email", { error, email } as any);
       throw error;
     }
   }
