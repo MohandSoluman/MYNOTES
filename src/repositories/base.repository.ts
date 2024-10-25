@@ -39,8 +39,11 @@ export abstract class BaseRepository<T extends Model & HasId> {
   }
   async create(data: any) {
     try {
-      logger.info(`Creating ${this.entityType}`, { data } as any);
+      logger.info(`Creating ${this.entityType}........................`, {
+        data,
+      } as any);
       const instance = await this.model.create(data);
+      console.log(instance);
       await this.createAuditLog(instance.id, "CREATE", data);
       return instance;
     } catch (error) {
@@ -51,6 +54,7 @@ export abstract class BaseRepository<T extends Model & HasId> {
       throw error;
     }
   }
+
   async update(id: number, data: any) {
     try {
       logger.info(`Updating ${this.entityType}`, { id, data } as any);

@@ -1,5 +1,5 @@
 import { Model, DataTypes, Sequelize } from "sequelize";
-import { IUser } from "../../interfaces/user.interface";
+import { IUser, IUserType } from "../../interfaces/user.interface";
 
 export class User extends Model<IUser> {
   public id!: number;
@@ -67,6 +67,38 @@ export class User extends Model<IUser> {
         timestamps: true,
         createdAt: "created_at",
         updatedAt: "updated_at",
+      }
+    );
+  }
+}
+
+export class UserType extends Model<IUserType> {
+  public id!: number;
+  public name!: string;
+  public code!: string;
+
+  public static initModel(sequelize: Sequelize): void {
+    UserType.init(
+      {
+        id: {
+          type: DataTypes.INTEGER,
+          autoIncrement: true,
+          primaryKey: true,
+        },
+        name: {
+          type: DataTypes.STRING(100),
+          allowNull: false,
+        },
+        code: {
+          type: DataTypes.STRING(50),
+          allowNull: false,
+          unique: true,
+        },
+      },
+      {
+        sequelize,
+        tableName: "user_types",
+        timestamps: false,
       }
     );
   }
