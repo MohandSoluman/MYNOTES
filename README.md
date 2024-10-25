@@ -12,7 +12,7 @@ This **Notes App** is a robust and feature-rich application built using **Node.j
 - [API Documentation](#api-documentation)
 - [Testing](#testing)
 
----
+
 
 ## Features
 
