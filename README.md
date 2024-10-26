@@ -75,3 +75,21 @@ The **Notes App** is structured to ensure scalability and maintainability with t
    ```bash
    git clone <repository-url>
    cd notes-app
+
+
+2. **Install dependencies**:
+
+   ```bash
+       npm install
+3.  **Set up environment variables by creating a .env file based on .env.example.**:
+ 
+4. **Run the application with Docker**:
+    ```bash
+        docker-compose up
+        
+### Usage
+## Start the Server Locally
+# To start the server locally:
+  
+   ```bash 
+     npm start
